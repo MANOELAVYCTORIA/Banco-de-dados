@@ -1,0 +1,128 @@
+create database CursoX;
+
+create table alunos (
+alu_codigo int primary key auto_increment,
+alu_nome varchar(100) not null,
+alu_endereco varchar(200) not null,
+alu_cidade varchar(45) not null
+);
+
+create table disciplinas (
+dis_codigo int primary key auto_increment,
+dis_nome varchar(100) not null,
+dis_carga int not null,
+dis_professor varchar(45) not null
+);
+
+create table professores (
+prof_codigo int primary key auto_increment,
+prof_nome varchar(100) not null,
+prof_endereco varchar(200) not null,
+prof_cidade varchar(45) not null
+);
+
+insert into alunos (alu_nome, alu_endereco, alu_cidade)
+values ('Manoela Vyctoria', 'rua cambuí - 65, ilha joana Bezerra', 'RECIFE - PE'),
+	   ('Jennyfer kelly', 'rua itaguaje - 5, ilha joana Bezerra', 'RECIFE - PE'),
+       ('Ana Lucia', 'rua itaguaje - 5B, Ilha joana Bezerra', 'RECIFE-PE'),
+       ('Maria Eduara Oliveira', 'rua barra dourada - 249, ilha joana Bezerra', 'RECIFE - PE'),
+       ('Perinalda dos Santos', 'Rua braço do norte - s/n, ilha joana Bezerra', 'RECIFE - PE'),
+       ('José Genival', 'Rua do sol - 4356', 'RECIFE - PE'),
+       ('Eduarda Bias', 'Rua tenente Arnaldo - 147, Alto santo antonio', 'CAMARAGIBE - PE'),
+       ('Pedro Henrique', 'Rua cambuí - 63, ilha joana Bezerra', 'RECIFE - PE'),
+       ('Mathias Jonathan', 'Rua das Graças - 8734', 'OLINDA - PE'),
+       ('Paula santos', 'Rua da paz - 87, Rio doce', 'OLINDA - PE'),
+       ('rafaela patricia da silva', 'rua A - 76, coque', 'RECIFE - PE'); 
+       
+insert into disciplinas (dis_nome, dis_carga, dis_professor)
+values ('Português', '200', 'Marcelo Cruz'),
+       ('Matemática', '200', 'Osvaldo Ricardo'),
+	   ('Geografia', '100', 'joão Neto'),
+       ('Historia', '150', 'Kerem Almeida'),
+       ('Música', '100', 'Luciana Lucena');
+       
+       
+insert into professores (prof_nome, prof_endereco, prof_cidade)
+values ('Marcelo Cruz', 'Rua do Céu - 32, Casa Amarela', 'RECIFE - PE'),
+       ('Osvaldo Ricardo', 'Av. Azul - 45, Caxanga', 'RECIFE - PE'),
+       ('João Neto', 'Rua da alegria - 74, Arruda', 'RECIFE - PE'),
+       ('Kerem Almeida', 'Rua A - 97, Aflitos', 'RECIFE - PE'),
+       ('Luciana Lucena', 'Rua San Martins - 100, San Martins', 'RECIFE - PE');
+       
+update disciplinas set 
+		   dis_carga = dis_carga + 10
+             WHERE dis_codigo = 1;
+             
+delete from disciplinas 
+       where dis_professor = 'João Neto';
+       
+       -- 10) 1 -
+       
+       SELECT * FROM professores;
+       
+       -- 10) 2 -
+       
+		select alu_nome from alunos
+         where alu_codigo between 1 and 3;  
+       
+       -- 10) 3 -
+       
+       select dis_nome, dis_professor from disciplinas;
+       
+       -- 10) 4 -
+       
+       select dis_nome from disciplinas
+       where dis_professor is null;
+       
+       -- 10) 5-
+       
+       select alu_nome 'Nome do aluno' from alunos limit 5;
+       
+       -- 10) 6-
+       
+       select dis_nome from disciplinas
+       where dis_codigo between 5 and 15;
+       
+       -- 10) 7- 
+       
+       select alu_nome from alunos
+       where alu_nome like '%silva';
+       
+       -- 11) 1 -
+       
+       select alu_cidade 'Cidades', count(alu_cidade)'Quantidade' from alunos
+       where alu_codigo
+       group by alu_cidade
+       order by  alu_cidade;
+       
+       -- 11) 2 -
+       
+       select prof_nome "Nome", prof_endereco"Endereço", prof_cidade 'Cidade'
+       from professores
+       order by prof_cidade;
+       
+       -- 11) 3 - 
+      
+      SELECT dis_nome 'disciplina',count(dis_codigo) FROM disciplinas
+		GROUP BY dis_nome
+      ORDER BY dis_nome;
+       
+       -- 11) 4 - 5 -
+       
+       select distinct dis_professor'nome', (dis_carga)'Carga Horaría' from disciplinas
+       group by dis_nome
+       order by dis_professor;
+       
+       -- 11) 6 - 
+       
+       select distinct upper(dis_nome)'Nomes'
+       from disciplinas;
+       
+       -- 11) 7-
+       select prof_nome from professores
+       where prof_nome  between 'A' and 'J'
+       order by prof_nome;
+       
+       -- 11) 8 - 
+       
+       select distinct round(avg(dis_carga),2)'Média' from disciplinas;
